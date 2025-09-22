@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rive + Texto dinámico</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #222;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="riveCanvas" width="739" height="234"></canvas>
+
+    <script src="https://unpkg.com/@rive-app/canvas"></script>
+    <script>
+        const r = new rive.Rive({
+            src: "lab3.riv" + "?v=" + Math.random(),
+            canvas: document.getElementById("riveCanvas"),
+            autoplay: true,
+            artboard: "Artboard",
+            stateMachines: "State Machine 1",
+            onLoad: () => {
+                const artboard = r.artboard;
+                const textRun = artboard.textRun("lblRun");
+                if (textRun) {
+                    console.log(`My design-time text is ${textRun.text}`);
+                    textRun.text = "Hola soy Mario y me gusta diseñar animaciones con Rive!";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

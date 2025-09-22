@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rive + Animación de personaje</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #222;
+        }
+
+        button {
+            position: absolute;
+            top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="riveCanvas" width="1000" height="1000"></canvas>
+    <button id="startAnimation">Curar</button>
+
+    <script src="https://unpkg.com/@rive-app/canvas"></script>
+    <script>
+        const r = new rive.Rive({
+            src: "lab3.riv" + "?v=" + Math.random(),
+            canvas: document.getElementById("riveCanvas"),
+            autoplay: true,
+            artboard: "Artboard2",
+            stateMachines: "State Machine 1",
+            onLoad: () => {
+                const artboard = r.artboard;
+
+                const hoverInput = r.stateMachineInputs("State Machine 1").find(i => i.name === "IsHealing");
+                const btnStartAnimation = document.getElementById("startAnimation");
+
+                btnStartAnimation.addEventListener("click", () => {
+                    hoverInput.value = true;
+                    setTimeout(() => {
+                        hoverInput.value = false;
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
